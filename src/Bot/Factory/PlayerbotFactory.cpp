@@ -1374,6 +1374,8 @@ void PlayerbotFactory::InitPetTalents()
             continue;
 
         TalentTabEntry const* talentTabInfo = sTalentTabStore.LookupEntry(talentInfo->TalentTab);
+        if (!talentTabInfo)
+            continue;
 
         // prevent learn talent for different family (cheating)
         if (!((1 << pet_family->petTalentType) & talentTabInfo->petTalentMask))
@@ -1835,7 +1837,7 @@ void PlayerbotFactory::InitTalentsBySpecNo(Player* bot, int specNo, bool reset)
                     continue;
                 }
                 TalentTabEntry const* talentTabInfo = sTalentTabStore.LookupEntry(talentInfo->TalentTab);
-                if (talentTabInfo->tabpage != tab)
+                if (!talentTabInfo || talentTabInfo->tabpage != tab)
                 {
                     continue;
                 }
@@ -1909,7 +1911,7 @@ void PlayerbotFactory::InitTalentsByParsedSpecLink(Player* bot, std::vector<std:
                 continue;
             }
             TalentTabEntry const* talentTabInfo = sTalentTabStore.LookupEntry(talentInfo->TalentTab);
-            if (talentTabInfo->tabpage != tab)
+            if (!talentTabInfo || talentTabInfo->tabpage != tab)
             {
                 continue;
             }
@@ -3759,7 +3761,7 @@ void PlayerbotFactory::InitTalentsByTemplate(uint32 specTab)
                     continue;
                 }
                 TalentTabEntry const* talentTabInfo = sTalentTabStore.LookupEntry(talentInfo->TalentTab);
-                if (talentTabInfo->tabpage != tab)
+                if (!talentTabInfo || talentTabInfo->tabpage != tab)
                 {
                     continue;
                 }
